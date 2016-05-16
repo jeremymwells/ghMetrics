@@ -1,0 +1,74 @@
+
+<md-card>
+  <md-toolbar flex layout="row" class="md-primary md-hue-3">
+    <div class="md-toolbar-tools">
+      <h4>Repositories</h4>
+    </div>
+  </md-toolbar>
+
+  <div flex layout="row" class="md-toolbar-tools">
+    <div flex="5"></div>
+    <div flex="10">
+      sort by:
+    </div>
+    <div ng-repeat="sortField in repoListCtrl.sortFields track by $index" 
+      flex="{{sortField.flex}}" 
+      ng-click="repoListCtrl.toggleSort(sortField.field)"
+      class="pointer md-button"
+      ng-class="{'sorted':repoListCtrl.isSortField(sortField.field)}"
+    >
+      {{sortField.desc}}
+      <md-icon ng-if="repoListCtrl.isSortField(sortField.field)">
+        keyboard_arrow_{{repoListCtrl.sortDirection ? 'down' : 'up'}}
+      </md-icon>
+    </div>
+  </div>
+
+  <md-card-content layout="column" layout-wrap layout-gt-sm="row">
+    <md-card
+      ng-repeat="repo in repoListCtrl.orgService.currentOrganization.repos | orderBy: repoListCtrl.currentSort track by $index"
+      title="{{repo.name}}"
+      class="repo-card pointer"
+      flex="{{repoListCtrl.$mdMedia('gt-sm') ? 30 : 100}}"
+      ng-click="repoListCtrl.$state.go('org.repo', { repo: repo.name })"
+    >
+      <div class="top"> 
+        <h3 ng-bind="repo.name"></h3>
+      </div>
+      <div class="middle" ng-bind="repo.description || 'no description'"></div>      
+      <div class="bottom">
+        <md-divider></md-divider>
+        <div layout="row">
+          <stat-link ng-repeat="sf in repoListCtrl.statFields track by $index"                    
+            stat-count="repo[sf.field]"
+            stat-description="sf.desc"
+            stat-abbv="sf.abbv">
+          </stat-link> 
+          <div flex></div>              
+          <a 
+            title="view repo" 
+            ng-href="{{repoListCtrl.$state.href('org.repo', { repo: repo.name })}}"            
+            class="stat-link-link"
+          >
+            <div class="gh-link">
+              <md-icon class="material-icons">call_merge</md-icon>
+              <div class="stat-link-text">view</div>
+            </div>
+          </a>
+          <a 
+            title="launch in github" 
+            ng-click="$event.stopPropagation()"
+            ng-href="{{repo.html_url}}" 
+            target="_blank" 
+            class="stat-link-link"
+          >
+            <div class="gh-link">
+              <md-icon class="material-icons">launch</md-icon>
+              <div class="stat-link-text">github</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </md-card>
+  </md-card-content>
+</md-card>

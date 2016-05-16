@@ -1,0 +1,109 @@
+.org-container {
+  margin: 0 0 0 0;
+
+  .org-page-header  {
+    padding:0 0 0 2em;
+    background-color:#484845;
+    color:white;
+
+    .autocomplete-icon{
+      float: right;
+      margin: -1.25em 0 0 0;
+      position: relative;
+      z-index: 1;
+      color: silver;
+    }
+
+    h2 {
+      margin: 0 0 0 0;
+
+    }
+
+  }
+
+  .org-page-body{
+    padding: 1em 1em;    
+
+    md-toolbar{
+      background-color:#f6f6f6;
+      color:#202020;
+    }  
+
+    .links-menu{
+      padding:0 0 0 0;
+      margin: 0 0 0 0;
+      display:block;
+    }
+  }
+}
+.float-left{
+  float:left;
+}
+.sorted{
+  background-color:#ECECEC;
+}
+.no-outline{
+  outline:0;
+}
+
+.gh-link{
+  margin: -.4em 0 0 .4em;
+  text-align:center;
+}
+
+.org-desc{
+  margin: 0 0 0 0;
+  color: grey;
+  font-weight:400;
+  font-style: italic;
+}
+
+.repo-card{
+  padding: 0 1em 1em 1em;
+  vertical-align:top;
+  height:225px !important;
+  display:inline-block;
+  .top{
+    position:relative;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    top:1em;
+  }
+  .middle{
+    position:relative;
+    top:20%;
+    height:30%;
+    overflow:hidden;
+  }
+  .bottom{
+    position:relative;
+    top:45%;
+    md-divider{
+      margin: -1.25em 0 1.25em 0;
+    }
+  }
+  h3{
+    text-transform: capitalize;
+    margin: 0 0 0 0;
+  }
+}
+
+.color-grey {
+  color:grey;
+}
+.align-right{
+  text-align:right;
+}
+.closer{
+  margin-right:20px;
+}
+.message-row{
+  margin-left:5px !important;
+  height: 3em !important;
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+  position: absolute !important;
+  width: 90% !important;
+  text-overflow: ellipsis;
+}

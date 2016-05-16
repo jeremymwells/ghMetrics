@@ -1,0 +1,109 @@
+<div flex layout="column" class="org-container">
+  <md-toolbar flex layout="row" class="org-page-header md-toolbar-tools">
+    <div flex="80">
+      <a 
+        ng-href="{{orgCtrl.$state.href('org.home', { orgLogin: orgCtrl.orgService.currentOrganization.login })}}"
+      >
+        <h2>{{orgCtrl.orgService.currentOrganization.login}}</h2>
+      </a>
+    </div>
+    <div flex>
+      <md-autocomplete
+          md-no-cache="true"
+          md-selected-item="orgCtrl.selectedOrg"
+          md-search-text-change="orgCtrl.findOrganization()"
+          md-search-text="orgCtrl.searchTerm"
+          md-selected-item-change="orgCtrl.redirectToNewOrganization(orgCtrl.selectedOrg.login)"
+          md-items="item in orgCtrl.findOrganization()"
+          md-item-text="item.name || item.login"
+          md-min-length="1"
+          placeholder="find an organization">  
+        <md-item-template>
+          <span md-highlight-text="orgCtrl.searchTerm" md-highlight-flags="^i">{{item.name || item.login}}</span>
+        </md-item-template>
+        <md-not-found>
+          No organizations "{{orgCtrl.searchTerm}}" were found.
+        </md-not-found>
+      </md-autocomplete>
+      <md-icon ng-if="!orgCtrl.searchTerm" class="material-icons autocomplete-icon">search</md-icon> 
+    </div>
+    <div flex="5"></div>
+  </md-toolbar>
+
+  <div flex layout="row" class="org-page-body">
+    <div ng-if="!orgCtrl.linksAreVisible" layout="column">
+      <md-icon title="display organization facets"
+        ng-click="orgCtrl.toggleLinks()"
+        class="material-icons pointer links-menu"
+      >
+        menu
+      </md-icon>
+      <!-- <md-icon title="display organization facets"
+        ng-if="false"
+        ng-click="orgCtrl.toggleLinks()"
+        class="material-icons pointer links-menu"
+      >
+        other thing
+      </md-icon> -->
+    </div>    
+    <div flex="20" ng-show="orgCtrl.linksAreVisible" layout="row">
+      <div flex="5"></div>
+      <md-card flex>
+
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h4 flex-order="{{orgCtrl.$mdMedia('gt-sm') ? 1 : 3}}">Menu</h4>
+            <span flex flex-order="2"></span>
+            <md-icon 
+              flex-order="{{orgCtrl.$mdMedia('gt-sm') ? 3 : 1}}"
+              title="hide menu"
+              ng-if="orgCtrl.linksAreVisible"
+              ng-click="orgCtrl.toggleLinks()"
+              class="material-icons pointer charcoal-color closer">
+              close
+            </md-icon>
+          </div>
+        </md-toolbar>
+        <facet-item 
+          facet-text="'home'"
+          href="orgCtrl.$state.href('org.home', { orgLogin: orgCtrl.orgService.currentOrganization.login})" 
+          is-active="orgCtrl.$state.is('org.home')">
+        </facet-item>
+        <facet-item ng-if="orgCtrl.orgService.currentOrganization.repos.length"
+          facet-text="'repos'"
+          href="orgCtrl.$state.href('org.repos', { orgLogin: orgCtrl.orgService.currentOrganization.login})" 
+          is-active="orgCtrl.$state.is('org.repos') || orgCtrl.$state.is('org.repo')">
+        </facet-item>
+        <facet-item ng-if="orgCtrl.orgService.currentOrganization.events.length"
+          facet-text="'events'"
+          href="orgCtrl.$state.href('org.events', { orgLogin: orgCtrl.orgService.currentOrganization.login })" 
+          is-active="orgCtrl.$state.is('org.events')">
+        </facet-item>
+        <facet-item ng-if="orgCtrl.orgService.currentOrganization.hooks.length"
+          facet-text="'hooks'"
+          href="orgCtrl.$state.href('org.hooks', { orgLogin: orgCtrl.orgService.currentOrganization.login})" 
+          is-active="orgCtrl.$state.is('org.hooks')">
+        </facet-item>
+        <facet-item ng-if="orgCtrl.orgService.currentOrganization.issues.length"
+          facet-text="'issues'"
+          href="orgCtrl.$state.href('org.issues', { orgLogin: orgCtrl.orgService.currentOrganization.login})" 
+          is-active="orgCtrl.$state.is('org.issues')">
+        </facet-item>
+        <facet-item ng-if="orgCtrl.orgService.currentOrganization.members.length"
+          facet-text="'members'"
+          href="orgCtrl.$state.href('org.members', { orgLogin: orgCtrl.orgService.currentOrganization.login})" 
+          is-active="orgCtrl.$state.is('org.members')">
+        </facet-item>
+        <facet-item ng-if="orgCtrl.orgService.currentOrganization.public_members.length"
+          facet-text="'public members'"
+          href="orgCtrl.$state.href('org.public-members', { orgLogin: orgCtrl.orgService.currentOrganization.login})" 
+          is-active="orgCtrl.$state.is('org.public-members')">
+        </facet-item>
+
+      </md-card>
+      <div flex="5"></div>  
+    </div>
+    <div flex ui-view></div>
+  </div>
+
+</div>

@@ -1,0 +1,72 @@
+
+<md-card>
+  <md-toolbar flex layout="row" class="md-primary md-hue-3">
+    <div class="md-toolbar-tools" layout-align="space-between center">    	 
+      <h4 ng-bind="repoCtrl.currentRepo.name + ' commits'	"></h4>
+      <a 
+    		ng-href="{{repoCtrl.$state.href('org.repos',{ repo: repoCtrl.$state.params.repo})}}"
+    		title="back to repo list"
+  		>
+    		<md-icon class="material-icons">close</md-icon>
+    	</a>   
+    </div>
+  </md-toolbar>
+
+  <div flex layout="row" class="md-toolbar-tools">
+    <div flex="5"></div>
+    <div flex="10">
+      sort by:
+    </div>
+    <div ng-repeat="sortField in repoCtrl.sortFields track by $index" 
+      flex="{{sortField.flex}}" 
+      ng-click="repoCtrl.toggleSort(sortField.field)"
+      class="pointer md-button"
+      ng-class="{'sorted':repoCtrl.isSortField(sortField.field)}"
+    >
+      {{sortField.desc}}
+      <md-icon ng-if="repoCtrl.isSortField(sortField.field)">
+        keyboard_arrow_{{repoCtrl.sortDirection ? 'down' : 'up'}}
+      </md-icon>
+    </div>
+  </div>
+
+  <md-card-content>
+    <md-list>
+      <md-list-item class="md-3-line" 
+        ng-repeat="commit in repoCtrl.currentRepo.commits | orderBy: repoCtrl.currentSort track by $index"
+      >
+      	<a ng-href="{{commit.author.html_url}}" target="_blank">
+      		<div style="display:none;">{{commit.author}}</div>
+	        <img 
+	        	ng-if="commit.author.avatar_url" 
+	        	ng-src="{{commit.author.avatar_url}}" 
+	        	class="small-avatar" 
+	        	alt="{{commit.author.login}}" 
+	        	title="{{commit.author.login}}"
+	      	/>
+	        <md-icon 
+	        	ng-if="!commit.author.avatar_url"
+	        	class="material-icons avatar-placeholder"
+	      	>
+	        	account_circle
+	      	</md-icon>
+      	</a>
+        <div class="event-body md-list-item-text" layout="column">
+          <div flex layout="row" layout-align="space-between center">
+            <h3 ng-bind="commit.author.name || commit.author.login || '[name absent]'"></h3>
+            <div ng-bind="commit.sha"></div>
+            <h4 ng-bind="repoCtrl.formatDate(commit.author.date)"></h4>
+          </div>
+          <div layout="row" flex>
+            <p flex layout="row" class="message-row"
+              ng-bind="commit.commit.message"
+            >
+            </p>
+          </div>
+        </div>
+        <md-divider></md-divider>
+      </md-list-item>
+      
+    </md-list>
+  </md-card-content>
+</md-card>

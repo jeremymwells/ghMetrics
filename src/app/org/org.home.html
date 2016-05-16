@@ -1,0 +1,86 @@
+
+
+<md-card>
+  <md-toolbar flex layout="row" class="md-primary md-hue-3">
+    <div class="md-toolbar-tools">
+      <h4>Organization Info</h4>
+    </div>
+  </md-toolbar>
+
+  <md-card-content>
+    <div layout="row" flex-offset="5" layout-gt-xm="column">
+      <div flex="35" layout="column">
+        <h3>
+          {{orgHomeCtrl.orgService.currentOrganization.name || orgHomeCtrl.orgService.currentOrganization.login}}
+        </h3>
+        <h5 class="org-desc">
+          {{orgHomeCtrl.orgService.currentOrganization.description || 'missing description'}}
+          <br />
+          {{orgHomeCtrl.orgService.currentOrganization.location || 'missing location'}}
+        </h5>
+        <br />
+        <div layout="row">
+          blog: &nbsp; <span class="color-grey">{{orgHomeCtrl.orgService.currentOrganization.blog}}</span>
+        </div>
+        <div layout="row">
+          email: &nbsp; <span class="color-grey">{{orgHomeCtrl.orgService.currentOrganization.email}}</span>
+        </div>
+        <div layout="row">
+            recent org events: &nbsp; 
+            <span class="color-grey">{{orgHomeCtrl.orgService.currentOrganization.events.length}}</span>
+        </div>
+        <div layout="row">
+          total followers: &nbsp;
+          <span class="color-grey"> {{orgHomeCtrl.orgService.currentOrganization.followers}}</span>
+        </div>
+        <div layout="row">
+          total followed: &nbsp;
+          <span class="color-grey">{{orgHomeCtrl.orgService.currentOrganization.following}}</span>
+        </div>
+        <div layout="row">
+          total hooks: &nbsp;
+          <span class="color-grey">
+            {{orgHomeCtrl.orgService.currentOrganization.hooks.length}}
+          </span>
+        </div>
+        <div layout="row">
+          total issues: &nbsp;
+          <span class="color-grey">
+            {{orgHomeCtrl.orgService.currentOrganization.issues.length}}
+          </span>
+        </div>
+        <div layout="row">
+          total members: &nbsp;
+          <span class="color-grey">
+            {{orgHomeCtrl.orgService.currentOrganization.members.length}}
+          </span>
+        </div>
+        <div layout="row">
+          total public members: &nbsp;
+          <span class="color-grey">
+            {{orgHomeCtrl.orgService.currentOrganization.public_members.length}}
+          </span>
+        </div>
+        <div layout="row">
+          total public repos: &nbsp;
+          <span class="color-grey">
+            {{orgHomeCtrl.orgService.currentOrganization.public_repos}}
+          </span>
+        </div>
+      </div>
+
+      <div flex layout="column">
+        <div layout="row" flex>
+          <div>
+            <img 
+              class="org-avatar"
+              ng-src="{{orgHomeCtrl.orgService.currentOrganization.avatar_url}}" 
+              alt="{{orgHomeCtrl.orgService.currentOrganization.login}} avatar"
+              title="{{orgHomeCtrl.orgService.currentOrganization.Name}}"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>

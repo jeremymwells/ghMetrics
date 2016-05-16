@@ -1,0 +1,64 @@
+
+<md-card>
+  <md-toolbar flex layout="row" class="md-primary md-hue-3">
+    <div class="md-toolbar-tools">
+      <h4 ng-bind="memberListCtrl.orgService.currentOrganization.login + ' members'"></h4>
+    </div>
+  </md-toolbar>
+
+  <div flex layout="row" class="md-toolbar-tools">
+    <div flex="5"></div>
+    <div flex="10">
+      sort by:
+    </div>
+    <div ng-repeat="sortField in memberListCtrl.sortFields track by $index" 
+      flex="{{sortField.flex}}" 
+      ng-click="memberListCtrl.toggleSort(sortField.field)"
+      class="pointer md-button"
+      ng-class="{'sorted':memberListCtrl.isSortField(sortField.field)}"
+    >
+      {{sortField.desc}}
+      <md-icon ng-if="memberListCtrl.isSortField(sortField.field)">
+        keyboard_arrow_{{memberListCtrl.sortDirection ? 'down' : 'up'}}
+      </md-icon>
+    </div>
+  </div>
+
+  <md-card-content>
+    <md-card
+      ng-repeat="member in memberListCtrl.orgService.currentOrganization.members | orderBy: memberListCtrl.currentSort track by $index"
+      class="member-card"
+      title="{{member.name}}"
+    >
+      
+      <div class="top"> 
+        <h3 ng-bind="member.name || member.login || '&nbsp;'"></h3>
+      </div>
+      <div class="middle">
+        <img 
+          ng-src="{{member.avatar_url}}"
+          alt="{{member.name}} avatar"
+          title="{{member.name}}"
+        />
+      </div>
+      <div class="bottom">
+        <div class="member-stat" layout="row">
+          <div ng-bind="member.email || '&nbsp;'"></div>
+          <div flex></div>
+          <div ng-bind="member.location || '&nbsp;'"></div>          
+        </div>
+        <stat-link ng-repeat="sf in memberListCtrl.statFields track by $index"
+          stat-count="member[sf.field]"
+          stat-description="sf.desc"
+          stat-abbv="sf.abbv">
+        </stat-link>
+        <a title="launch in github" ng-href="{{member.html_url}}" target="_blank" class="float-right stat-link-link">
+          <div class="gh-link">
+            <md-icon class="material-icons">launch</md-icon>
+            <div class="stat-link-text">github</div>
+          </div>
+        </a>
+      </div>
+    </md-card>
+  </md-card-content>
+</md-card>

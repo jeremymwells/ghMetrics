@@ -1,0 +1,54 @@
+
+<md-card>
+  <md-toolbar flex layout="row" class="md-primary md-hue-3">
+    <div class="md-toolbar-tools">
+      <h4>Events</h4>
+    </div>
+  </md-toolbar>
+
+  <div flex layout="row" class="md-toolbar-tools">
+    <div flex="5"></div>
+    <div flex="10">
+      sort by:
+    </div>
+    <div ng-repeat="sortField in eventListCtrl.sortFields track by $index" 
+      flex="{{sortField.flex}}" 
+      ng-click="eventListCtrl.toggleSort(sortField.field)"
+      class="pointer md-button"
+      ng-class="{'sorted':eventListCtrl.isSortField(sortField.field)}"
+    >
+      {{sortField.desc}}
+      <md-icon ng-if="eventListCtrl.isSortField(sortField.field)">
+        keyboard_arrow_{{eventListCtrl.sortDirection ? 'down' : 'up'}}
+      </md-icon>
+    </div>
+  </div>
+
+  <md-card-content>
+    <events-chart></events-chart>
+    <md-list>
+      <md-list-item class="md-3-line" 
+        ng-repeat="event in eventListCtrl.orgService.currentOrganization.events | orderBy: eventListCtrl.currentSort track by $index">
+        <a ng-href="https://github.com/{{event.actor.login}}" target="_blank">
+          <img ng-src="{{event.actor.avatar_url}}" class="small-avatar" alt="{{event.actor.url}}" />
+        </a>
+        <div class="event-body md-list-item-text" layout="column">
+          <div flex layout="row">
+            <h3 ng-bind="event.actor.login"></h3>
+            <div flex></div>
+            <h4 ng-bind="eventListCtrl.formatDate(event.created_at)"></h4>
+          </div>
+          <div layout="row" flex>
+            <h4><i ng-bind="event.type + ':'"></i></h4>
+            <p flex layout="row" class="payload-row"
+              ng-bind="eventListCtrl.getEventSummary(event)"
+            >
+            </p>
+          </div>
+        </div>
+        <md-divider></md-divider>
+      </md-list-item>
+      
+    </md-list>
+  </md-card-content>
+</md-card>

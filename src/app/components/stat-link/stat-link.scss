@@ -1,0 +1,23 @@
+
+.stat-link-link, .stat-link-link:visited {
+  text-decoration: none !important;
+  color:inherit;
+}
+
+.stat-link{
+  padding:3px 5px 3px 5px;
+  margin: -.4em .5em 0 0;
+  background-color: #ECECEC;
+  border-radius:3px 3px 3px 3px;
+  text-align:center;
+}
+
+.stat-link-text{
+  font-size:.4em;
+  margin-top:-.3em;
+}
+
+.stat-link-stat{
+  color:gray !important;
+  font-size:1em;
+}

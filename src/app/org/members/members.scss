@@ -1,0 +1,42 @@
+
+.member-card{
+  padding: 0 1em 1em 1em;
+  vertical-align:top;
+  height:425px !important;
+  width:30%;
+  display:inline-block;
+
+  .top{
+    position:relative;
+    top:1em;
+    z-index:10;
+  }
+  .middle{
+    position:relative;
+    top:20%;
+    height:30%;
+    img{
+      position:absolute;
+      top: -3em;
+      z-index: 0;
+    }
+  }
+  .bottom{
+    position:relative;
+    top:55%;
+    z-index:10;
+    .member-stat{
+      position: relative;
+      top: -1.75em;
+      margin-bottom: -.25em;
+      color: gray;
+      font-style: italic;
+      font-size: .7em;
+    }
+  }
+
+  h3{
+    text-transform: capitalize;
+    margin: 0 0 0 0;
+  }
+}
