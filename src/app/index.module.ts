@@ -6,6 +6,7 @@ import { runBlock } from './index.run';
 
 import { FacetItem } from './components/facet-item/facet-item.directive';
 import { StatLink } from './components/stat-link/stat-link.directive';
+import { HighChart } from './components/high-chart/high-chart.directive';
 
 import { OrgService } from './org/org.service';
 
@@ -30,6 +31,7 @@ module ghMetrics {
 
     .directive('facetItem', FacetItem)
     .directive('statLink', StatLink)
+    .directive('highChart', HighChart)
 
     .service('orgService', OrgService)
 

@@ -1,0 +1,14 @@
+<div>
+  <md-icon ng-if="showChart && chartInitialized" class="material-icons pointer float-right chart-button" ng-click="toggleChart()">
+    close
+  </md-icon>
+
+  <div title="show chart" ng-if="!showChart" class="gh-link chart-open-icon md-button-primary" ng-click="toggleChart()">
+    <md-icon class="material-icons">
+      {{chartIcon || ''}}
+    </md-icon>
+    <div class="stat-link-text">chart</div>
+  </div>
+  
+  <div class="high-chart-container" ng-show="showChart"></div>
+</div>

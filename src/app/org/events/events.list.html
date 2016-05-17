@@ -25,7 +25,12 @@
   </div>
 
   <md-card-content>
-    <events-chart></events-chart>
+    <high-chart        
+        chart-icon="'equalizer'"
+        init-after-promise="eventListCtrl.orgService.currentOrganization"
+        config="eventListCtrl.getChartConfig(eventListCtrl.orgService.currentOrganization)"
+      >
+      </high-chart>
     <md-list>
       <md-list-item class="md-3-line" 
         ng-repeat="event in eventListCtrl.orgService.currentOrganization.events | orderBy: eventListCtrl.currentSort track by $index">

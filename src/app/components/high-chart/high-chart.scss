@@ -1,0 +1,29 @@
+high-chart{
+  width:97%;
+  div{
+    width:100%;
+    .chart-button {
+      position: relative;
+      top: 1.4em;
+      left: -.5em;
+      z-index:10
+    }
+  }
+}
+.high-chart-container{
+  width:100%;
+  svg .highcharts-button{
+    margin-left:-2em !important;
+  }
+}
+.chart-open-icon{
+  width:30px;
+  padding: 2px 3px;
+  margin: .5em 0 .5em 0;
+  cursor:pointer;
+}
+.chart-open-icon:hover{
+  background-color:#ECECEC;
+  border-radius:5px 5px 5px 5px;
+
+}

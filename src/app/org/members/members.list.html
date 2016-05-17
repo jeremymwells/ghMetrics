@@ -21,10 +21,18 @@
       <md-icon ng-if="memberListCtrl.isSortField(sortField.field)">
         keyboard_arrow_{{memberListCtrl.sortDirection ? 'down' : 'up'}}
       </md-icon>
-    </div>
+    </div>    
   </div>
 
   <md-card-content>
+    <div layout="row" flex="100">
+      <high-chart        
+        chart-icon="'equalizer'"
+        init-after-promise="memberListCtrl.orgService.currentOrganization"
+        config="memberListCtrl.getChartConfig(memberListCtrl.orgService.currentOrganization)"
+      >
+      </high-chart>
+    </div>
     <md-card
       ng-repeat="member in memberListCtrl.orgService.currentOrganization.members | orderBy: memberListCtrl.currentSort track by $index"
       class="member-card"

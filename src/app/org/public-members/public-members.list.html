@@ -25,6 +25,12 @@
   </div>
 
   <md-card-content>
+    <high-chart        
+      chart-icon="'equalizer'"
+      init-after-promise="publicMembersListCtrl.orgService.currentOrganization"
+      config="publicMembersListCtrl.getChartConfig(publicMembersListCtrl.orgService.currentOrganization)"
+    >
+    </high-chart>
     <md-card
       ng-repeat="member in publicMembersListCtrl.orgService.currentOrganization.members | orderBy: publicMembersListCtrl.currentSort track by $index"
       class="member-card"
