@@ -25,6 +25,14 @@
   </div>
 
   <md-card-content layout="column" layout-wrap layout-gt-sm="row">
+    <div layout="row" flex="100">
+      <high-chart        
+        chart-icon="'equalizer'"
+        init-after-promise="repoListCtrl.orgService.currentOrganization"
+        config="repoListCtrl.getChartConfig(repoListCtrl.orgService.currentOrganization)"
+      >
+      </high-chart>
+    </div>
     <md-card
       ng-repeat="repo in repoListCtrl.orgService.currentOrganization.repos | orderBy: repoListCtrl.currentSort track by $index"
       title="{{repo.name}}"

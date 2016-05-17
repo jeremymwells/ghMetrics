@@ -10,9 +10,10 @@ export class OrgEventsListController {
   public statFields = this.sortFields.filter(sf => sf.field !== 'name');
   public currentSort = this.sortFields[0].field;
   public sortDirection: string;
+  public chartConfig: any;
 
   /* @ngInject */
-  constructor(private $state, private moment, public orgService: OrgService) {
+  constructor(private $state, private moment, public orgService: OrgService, private $filter) {
     //TODO: re-fetch organization events when route is activated -->
   }
 
@@ -32,5 +33,56 @@ export class OrgEventsListController {
   public getEventSummary(event){
     return JSON.stringify(event.payload);
   }
+
+  public getChartConfig(organization) {
+    if (!organization || !organization.events) { return; }
+    if (this.chartConfig) { return this.chartConfig; }
+
+    var members = this.$filter('orderBy')(organization.members, this.currentSort);
+    var events = organization.events;
+    var categories = members.map(member => member.login || 'unknown');
+    var seriesData = this.statFields.map((stat) => {
+      return {
+        name: stat.desc,
+        data: []
+      }
+    });
+
+    this.chartConfig = {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: organization.name + ' events'
+      },
+      xAxis: {
+        categories: categories,
+        crosshair: true
+      },
+      yAxis: {
+        title: {
+          text: 'Totals'
+        }
+      },
+      tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+      },
+      exporting: { enabled: false },
+      plotOptions: {
+        column: {
+          pointPadding: 0.2,
+          borderWidth: 0
+        }
+      },
+      series: seriesData
+    };
+    return this.chartConfig;
+  }
+
 
 }
